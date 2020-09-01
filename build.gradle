@@ -1,6 +1,6 @@
 buildscript {
   ext.configs = [
-      groupId: "com.github.takusemba",
+      groupId: "com.github.toshi0383",
       artifactId: "spotlight",
 
       libraryVersionCode: 24,
