@@ -33,6 +33,7 @@ internal class SpotlightView @JvmOverloads constructor(
     @ColorRes backgroundColor: Int = R.color.background
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+  private var textViewContainer: RelativeLayout? = null
   private val backgroundPaint by lazy {
     Paint().apply { color = ContextCompat.getColor(context, backgroundColor) }
   }
@@ -47,6 +48,7 @@ internal class SpotlightView @JvmOverloads constructor(
 
   private var shapeAnimator: ValueAnimator? = null
   private var effectAnimator: ValueAnimator? = null
+  private var textAnimator: ValueAnimator? = null
   private var target: Target? = null
 
   init {
@@ -121,6 +123,7 @@ internal class SpotlightView @JvmOverloads constructor(
 
     target.text?.let {
       val textViewContainer = LayoutInflater.from(context).inflate(R.layout.textview_message, null) as RelativeLayout
+      this.textViewContainer = textViewContainer
       textViewContainer.x = it.point.x
       textViewContainer.y = it.point.y
       val lp = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
@@ -130,6 +133,7 @@ internal class SpotlightView @JvmOverloads constructor(
         text = it.text
       }
       addView(textViewContainer)
+      textViewContainer.alpha = 0F
     }
 
     setOnClickListener {
@@ -151,8 +155,18 @@ internal class SpotlightView @JvmOverloads constructor(
       addUpdateListener(invalidator)
       addListener(listener)
     }
+    if (target.text != null) {
+      this.textAnimator = ofFloat(0f, 1f).apply {
+        duration = target.shape.duration
+        addUpdateListener {
+          val alpha = it.animatedValue as Float
+          textViewContainer?.alpha = alpha
+        }
+      }
+    }
     shapeAnimator?.start()
     effectAnimator?.start()
+    textAnimator?.start()
   }
 
   /**
