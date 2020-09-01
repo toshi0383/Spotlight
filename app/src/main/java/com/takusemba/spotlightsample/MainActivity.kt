@@ -1,5 +1,6 @@
 package com.takusemba.spotlightsample
 
+import android.graphics.PointF
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -28,8 +29,13 @@ class MainActivity : AppCompatActivity() {
       // first target
       val firstRoot = FrameLayout(this)
       val first = layoutInflater.inflate(R.layout.layout_target, firstRoot)
+      val firstView = findViewById<View>(R.id.one)
+      val firstViewLocation = IntArray(2)
+      firstView.getLocationInWindow(firstViewLocation)
+      val firstTextPoint = PointF(10F, (firstViewLocation[1] + firstView.height + 50).toFloat())
       val firstTarget = Target.Builder()
-          .setAnchor(findViewById<View>(R.id.one))
+          .setAnchor(firstView)
+          .setText("AAAAAAAAAAAA", firstTextPoint)
           .setShape(Circle(100f))
           .setOverlay(first)
           .setOnTargetListener(object : OnTargetListener {

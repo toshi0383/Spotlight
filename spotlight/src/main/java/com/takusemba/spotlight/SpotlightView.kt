@@ -13,9 +13,13 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.util.AttributeSet
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 
@@ -112,6 +116,20 @@ internal class SpotlightView @JvmOverloads constructor(
   fun startTarget(target: Target, listener: Animator.AnimatorListener) {
     removeAllViews()
     addView(target.overlay, MATCH_PARENT, MATCH_PARENT)
+
+    target.text?.let {
+      val textViewContainer = LayoutInflater.from(context).inflate(R.layout.textview_message, null) as RelativeLayout
+      textViewContainer.x = it.point.x
+      textViewContainer.y = it.point.y
+      val lp = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+      textViewContainer.layoutParams = lp
+      textViewContainer.gravity = Gravity.CENTER_HORIZONTAL
+      textViewContainer.findViewById<TextView>(R.id.textView)?.apply {
+        text = it.text
+      }
+      addView(textViewContainer)
+    }
+
     this.target = target
     this.shapeAnimator = ofFloat(0f, 1f).apply {
       duration = target.shape.duration

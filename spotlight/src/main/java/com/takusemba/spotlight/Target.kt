@@ -1,5 +1,6 @@
 package com.takusemba.spotlight
 
+import android.graphics.Point
 import android.graphics.PointF
 import android.view.View
 import com.takusemba.spotlight.effet.Effect
@@ -12,11 +13,14 @@ import com.takusemba.spotlight.shape.Shape
  */
 class Target(
     val anchor: PointF,
+    val text: Text?,
     val shape: Shape,
     val effect: Effect,
     val overlay: View?,
     val listener: OnTargetListener?
 ) {
+
+  class Text(val text: CharSequence, val point: PointF) { }
 
   /**
    * [Builder] to build a [Target].
@@ -25,6 +29,7 @@ class Target(
   class Builder {
 
     private var anchor: PointF = DEFAULT_ANCHOR
+    private var text: Text? = null
     private var shape: Shape = DEFAULT_SHAPE
     private var effect: Effect = DEFAULT_EFFECT
     private var overlay: View? = null
@@ -53,6 +58,13 @@ class Target(
      */
     fun setAnchor(anchor: PointF): Builder = apply {
       this.anchor = anchor
+    }
+
+    /**
+     * Sets a text to start a [Target].
+     */
+    fun setText(text: CharSequence, point: PointF): Builder = apply {
+      this.text = Text(text = text, point = point)
     }
 
     /**
@@ -85,6 +97,7 @@ class Target(
 
     fun build() = Target(
         anchor = anchor,
+        text = text,
         shape = shape,
         effect = effect,
         overlay = overlay,
