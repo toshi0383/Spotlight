@@ -11,6 +11,11 @@ interface OnTargetListener {
   fun onStarted()
 
   /**
+   * Called when user taps somewhere on window
+   */
+  fun onClicked()
+
+  /**
    * Called when Target is started
    */
   fun onEnded()

@@ -17,6 +17,7 @@ import com.takusemba.spotlight.shape.Circle
 
 class MainActivity : AppCompatActivity() {
 
+  private var spotlight: Spotlight? = null
   private var currentToast: Toast? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,10 @@ class MainActivity : AppCompatActivity() {
               currentToast?.show()
             }
 
+            override fun onClicked() {
+              spotlight?.next()
+            }
+
             override fun onEnded() {
               currentToast?.cancel()
               currentToast = makeText(this@MainActivity, "first target is ended", LENGTH_SHORT)
@@ -69,6 +74,10 @@ class MainActivity : AppCompatActivity() {
               currentToast?.show()
             }
 
+            override fun onClicked() {
+              spotlight?.next()
+            }
+
             override fun onEnded() {
               currentToast?.cancel()
               currentToast = makeText(this@MainActivity, "second target is ended", LENGTH_SHORT)
@@ -91,6 +100,10 @@ class MainActivity : AppCompatActivity() {
               currentToast?.cancel()
               currentToast = makeText(this@MainActivity, "third target is started", LENGTH_SHORT)
               currentToast?.show()
+            }
+
+            override fun onClicked() {
+              spotlight?.finish()
             }
 
             override fun onEnded() {
@@ -125,6 +138,7 @@ class MainActivity : AppCompatActivity() {
           .build()
 
       spotlight.start()
+      this.spotlight = spotlight
 
       val nextTarget = View.OnClickListener { spotlight.next() }
 

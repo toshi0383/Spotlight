@@ -115,7 +115,9 @@ internal class SpotlightView @JvmOverloads constructor(
    */
   fun startTarget(target: Target, listener: Animator.AnimatorListener) {
     removeAllViews()
-    addView(target.overlay, MATCH_PARENT, MATCH_PARENT)
+    target.overlay?.let {
+      addView(it, MATCH_PARENT, MATCH_PARENT)
+    }
 
     target.text?.let {
       val textViewContainer = LayoutInflater.from(context).inflate(R.layout.textview_message, null) as RelativeLayout
@@ -128,6 +130,10 @@ internal class SpotlightView @JvmOverloads constructor(
         text = it.text
       }
       addView(textViewContainer)
+    }
+
+    setOnClickListener {
+      target.listener?.onClicked()
     }
 
     this.target = target
