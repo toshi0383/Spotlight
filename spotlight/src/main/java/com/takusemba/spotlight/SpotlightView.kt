@@ -22,6 +22,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import kotlin.math.max
 
 /**
  * [SpotlightView] starts/finishes [Spotlight], and starts/finishes a current [Target].
@@ -78,6 +79,20 @@ internal class SpotlightView @JvmOverloads constructor(
           paint = shapePaint
       )
     }
+
+    textViewContainer?.let { textViewContainer ->
+      if (textViewContainer.x + textViewContainer.width > width) {
+        textViewContainer.x = 10F
+        val lp = textViewContainer.layoutParams
+        lp.width = width - 20
+        textViewContainer.layoutParams = lp
+      }
+      if (textViewContainer.y + textViewContainer.height + 10 > height) {
+        target?.let { target ->
+          textViewContainer.y = target.anchor.y - target.height / 2 - 25 - textViewContainer.height
+        }
+      }
+    }
   }
 
   /**
@@ -122,16 +137,24 @@ internal class SpotlightView @JvmOverloads constructor(
     }
 
     target.text?.let {
-      val textViewContainer = LayoutInflater.from(context).inflate(R.layout.textview_message, null) as RelativeLayout
+      val textViewContainer = LayoutInflater.from(context).inflate(R.layout.textview_message,
+          null) as RelativeLayout
       this.textViewContainer = textViewContainer
-      textViewContainer.x = it.point.x
-      textViewContainer.y = it.point.y
-      val lp = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-      textViewContainer.layoutParams = lp
-      textViewContainer.gravity = Gravity.CENTER_HORIZONTAL
       textViewContainer.findViewById<TextView>(R.id.textView)?.apply {
         text = it.text
       }
+      val x = target.anchor.x - target.width / 2 - 20
+      textViewContainer.x = max(x, 0F)
+      val yBelow = target.anchor.y + target.height / 2 + 25
+      if (yBelow + 50 > height) {
+        val yAbove = target.anchor.y - target.height / 2 - 25
+        textViewContainer.y = yAbove
+      } else {
+        textViewContainer.y = yBelow
+      }
+      val lp = RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+      textViewContainer.layoutParams = lp
+      textViewContainer.gravity = Gravity.CENTER_HORIZONTAL
       addView(textViewContainer)
       textViewContainer.alpha = 0F
     }

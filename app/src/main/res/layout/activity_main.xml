@@ -45,6 +45,7 @@
     android:textColor="@android:color/white"
     android:textSize="58sp"
     android:textStyle="bold"
+    android:layout_marginTop="400dp"
     app:layout_constraintBottom_toTopOf="@+id/start"
     app:layout_constraintEnd_toStartOf="@+id/two"
     app:layout_constraintHorizontal_bias="0.5"

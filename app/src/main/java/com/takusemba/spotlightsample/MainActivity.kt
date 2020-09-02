@@ -1,25 +1,18 @@
 package com.takusemba.spotlightsample
 
-import android.graphics.PointF
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.OnTargetListener
 import com.takusemba.spotlight.Spotlight
 import com.takusemba.spotlight.Target
-import com.takusemba.spotlight.shape.Circle
 
 class MainActivity : AppCompatActivity() {
 
   private var spotlight: Spotlight? = null
-  private var currentToast: Toast? = null
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
@@ -31,19 +24,11 @@ class MainActivity : AppCompatActivity() {
       val firstRoot = FrameLayout(this)
       val first = layoutInflater.inflate(R.layout.layout_target, firstRoot)
       val firstView = findViewById<View>(R.id.one)
-      val firstViewLocation = IntArray(2)
-      firstView.getLocationInWindow(firstViewLocation)
-      val firstTextPoint = PointF(10F, (firstViewLocation[1] + firstView.height + 50).toFloat())
       val firstTarget = Target.Builder()
-          .setAnchor(firstView)
-          .setText("AAAAAAAAAAAA", firstTextPoint)
-          .setShape(Circle(100f))
-          .setOverlay(first)
+          .setView(firstView)
+          .setText("HELLO FROM AWESOME NEW FEATURE")
           .setOnTargetListener(object : OnTargetListener {
             override fun onStarted() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "first target is started", LENGTH_SHORT)
-              currentToast?.show()
             }
 
             override fun onClicked() {
@@ -51,9 +36,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEnded() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "first target is ended", LENGTH_SHORT)
-              currentToast?.show()
             }
           })
           .build()
@@ -64,14 +46,11 @@ class MainActivity : AppCompatActivity() {
       val secondRoot = FrameLayout(this)
       val second = layoutInflater.inflate(R.layout.layout_target, secondRoot)
       val secondTarget = Target.Builder()
-          .setAnchor(findViewById<View>(R.id.two))
-          .setShape(Circle(150f))
-          .setOverlay(second)
+          .setView(findViewById<View>(R.id.two))
+          .setText(
+              "HELLO FROM AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME NEW FEATURE FOR YOU!!")
           .setOnTargetListener(object : OnTargetListener {
             override fun onStarted() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "second target is started", LENGTH_SHORT)
-              currentToast?.show()
             }
 
             override fun onClicked() {
@@ -79,9 +58,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEnded() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "second target is ended", LENGTH_SHORT)
-              currentToast?.show()
             }
           })
           .build()
@@ -92,14 +68,11 @@ class MainActivity : AppCompatActivity() {
       val thirdRoot = FrameLayout(this)
       val third = layoutInflater.inflate(R.layout.layout_target, thirdRoot)
       val thirdTarget = Target.Builder()
-          .setAnchor(findViewById<View>(R.id.three))
-          .setShape(Circle(200f))
-          .setOverlay(third)
+          .setView(findViewById<View>(R.id.three))
+          .setText(
+              "HELLO FROM AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME NEW FEATURE FOR YOU!!")
           .setOnTargetListener(object : OnTargetListener {
             override fun onStarted() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "third target is started", LENGTH_SHORT)
-              currentToast?.show()
             }
 
             override fun onClicked() {
@@ -107,9 +80,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEnded() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "third target is ended", LENGTH_SHORT)
-              currentToast?.show()
             }
           })
           .build()
@@ -124,15 +94,9 @@ class MainActivity : AppCompatActivity() {
           .setAnimation(DecelerateInterpolator(2f))
           .setOnSpotlightListener(object : OnSpotlightListener {
             override fun onStarted() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "spotlight is started", LENGTH_SHORT)
-              currentToast?.show()
             }
 
             override fun onEnded() {
-              currentToast?.cancel()
-              currentToast = makeText(this@MainActivity, "spotlight is ended", LENGTH_SHORT)
-              currentToast?.show()
             }
           })
           .build()

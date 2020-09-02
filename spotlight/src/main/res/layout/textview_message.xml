@@ -9,6 +9,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:text="HELLO FROM THE COOLEST NEW FEATURE!"
+    android:text="HELLO FROM THE HELLO FROM THE HELLO FROM THE HELLO FROM THE COOLEST NEW FEATURE!"
     />
 </RelativeLayout>
