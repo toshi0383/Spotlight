@@ -149,7 +149,7 @@ internal class SpotlightView @JvmOverloads constructor(
         text = it.text
       }
       val x = target.anchor.x - target.width / 2 - 20
-      textViewContainer.x = max(x, 0F)
+      textViewContainer.x = max(x, 10F)
       val yBelow = target.anchor.y + target.height / 2 + 25
       if (yBelow + 50 > height) {
         val yAbove = target.anchor.y - target.height / 2 - 25
