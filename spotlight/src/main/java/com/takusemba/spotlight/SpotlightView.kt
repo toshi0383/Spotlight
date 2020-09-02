@@ -82,10 +82,15 @@ internal class SpotlightView @JvmOverloads constructor(
 
     textViewContainer?.let { textViewContainer ->
       if (textViewContainer.x + textViewContainer.width > width) {
-        textViewContainer.x = 10F
-        val lp = textViewContainer.layoutParams
-        lp.width = width - 20
-        textViewContainer.layoutParams = lp
+
+        if (textViewContainer.width > width - 20) {
+          textViewContainer.x = 10F
+          val lp = textViewContainer.layoutParams
+          lp.width = width - 20
+          textViewContainer.layoutParams = lp
+        } else {
+          textViewContainer.x = width - 10F - textViewContainer.width
+        }
       }
       if (textViewContainer.y + textViewContainer.height + 10 > height) {
         target?.let { target ->

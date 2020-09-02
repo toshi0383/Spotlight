@@ -47,8 +47,7 @@ class MainActivity : AppCompatActivity() {
       val second = layoutInflater.inflate(R.layout.layout_target, secondRoot)
       val secondTarget = Target.Builder()
           .setView(findViewById<View>(R.id.two))
-          .setText(
-              "HELLO FROM AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME AWESOME NEW FEATURE FOR YOU!!")
+          .setText("HELLO FROM AWESOME NEW FEATURE")
           .setOnTargetListener(object : OnTargetListener {
             override fun onStarted() {
             }
