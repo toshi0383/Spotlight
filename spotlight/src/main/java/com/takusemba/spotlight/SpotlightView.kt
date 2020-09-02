@@ -212,5 +212,16 @@ internal class SpotlightView @JvmOverloads constructor(
     effectAnimator?.cancel()
     effectAnimator = null
     shapeAnimator?.start()
+    if (currentTarget.text != null) {
+      textAnimator = ofFloat(1f, 0f).apply {
+        duration = currentTarget.shape.duration
+        addUpdateListener {
+          val alpha = it.animatedValue as Float
+          textViewContainer?.alpha = alpha
+        }
+      }
+
+      textAnimator?.start()
+    }
   }
 }
