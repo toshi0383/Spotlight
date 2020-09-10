@@ -164,10 +164,6 @@ internal class SpotlightView @JvmOverloads constructor(
       textViewContainer.alpha = 0F
     }
 
-    setOnClickListener {
-      target.listener?.onClicked()
-    }
-
     this.target = target
     this.shapeAnimator = ofFloat(0f, 1f).apply {
       duration = target.shape.duration
@@ -189,6 +185,12 @@ internal class SpotlightView @JvmOverloads constructor(
         addUpdateListener {
           val alpha = it.animatedValue as Float
           textViewContainer?.alpha = alpha
+          if (alpha == 1f) {
+            setOnClickListener {
+              target.listener?.onClicked()
+              target.listener = null
+            }
+          }
         }
       }
     }

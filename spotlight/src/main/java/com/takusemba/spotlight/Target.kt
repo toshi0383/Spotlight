@@ -23,7 +23,7 @@ class Target(
     val shape: Shape,
     val effect: Effect,
     val overlay: View?,
-    val listener: OnTargetListener?
+    var listener: OnTargetListener?
 ) {
 
   class Text(val text: CharSequence) { }
