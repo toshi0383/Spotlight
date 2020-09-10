@@ -94,7 +94,7 @@ internal class SpotlightView @JvmOverloads constructor(
       }
       if (textViewContainer.y + textViewContainer.height + 10 > height) {
         target?.let { target ->
-          textViewContainer.y = target.anchor.y - target.height / 2 - 25 - textViewContainer.height
+          textViewContainer.y = target.anchor.y - target.height / 2 - 21 - textViewContainer.height
         }
       }
     }
@@ -150,9 +150,9 @@ internal class SpotlightView @JvmOverloads constructor(
       }
       val x = target.anchor.x - target.width / 2 - 20
       textViewContainer.x = max(x, 10F)
-      val yBelow = target.anchor.y + target.height / 2 + 25
+      val yBelow = target.anchor.y + target.height / 2 + 21
       if (yBelow + 50 > height) {
-        val yAbove = target.anchor.y - target.height / 2 - 25
+        val yAbove = target.anchor.y - target.height / 2 - 21
         textViewContainer.y = yAbove
       } else {
         textViewContainer.y = yBelow
